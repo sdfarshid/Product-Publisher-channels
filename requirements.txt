@@ -1,7 +1,9 @@
 fastapi[all]
 uvicorn
 sqlalchemy
-psycopg2
+asyncpg>=0.27.0
 alembic
 pydantic
+pydantic-settings
 passlib
+python-dotenv
