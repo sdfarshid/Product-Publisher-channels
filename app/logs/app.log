@@ -1,0 +1,462 @@
+2025-02-19 00:44:47,390 - app - DEBUG - Logger initialized!
+2025-02-19 00:44:47,418 - app - INFO - Starting User Service
+2025-02-19 00:45:34,239 - app - INFO - Shutting down User Service
+2025-02-19 00:45:35,305 - app - DEBUG - Logger initialized!
+2025-02-19 00:45:35,322 - app - INFO - Starting User Service
+2025-02-19 00:54:05,962 - app - INFO - Shutting down User Service
+2025-02-19 08:07:17,992 - app - DEBUG - Logger initialized!
+2025-02-19 08:07:18,056 - app - INFO - Starting User Service
+2025-02-19 08:17:36,080 - app - INFO - Shutting down User Service
+2025-02-19 08:17:38,733 - app - DEBUG - Logger initialized!
+2025-02-19 08:17:38,752 - app - INFO - Starting User Service
+2025-02-19 08:17:38,831 - app - DEBUG - Error: [<app.infrastructure.database.models.user.UserDBModel object at 0xffff8bc5ee30>]
+NoneType: None
+2025-02-19 08:24:36,196 - app - INFO - Shutting down User Service
+2025-02-19 08:24:38,734 - app - DEBUG - Logger initialized!
+2025-02-19 08:24:38,757 - app - INFO - Starting User Service
+2025-02-19 09:34:11,392 - app - DEBUG - 📌 Password Object: value='7845122'
+2025-02-19 09:34:11,740 - app - DEBUG - 📌 Password Value : 7845122
+2025-02-19 09:34:11,743 - app - DEBUG - 📌 HAst Password Value Object: AzdCViRlf5E+ZH+Jyd6G5A==7845122
+2025-02-19 09:34:26,546 - app - DEBUG - 📌 Password Object: value='7845122'
+2025-02-19 09:34:26,553 - app - DEBUG - 📌 Password Value : 7845122
+2025-02-19 09:34:26,556 - app - DEBUG - 📌 HAst Password Value Object: W+W4au8qs8jwBWRln/EnCg==7845122
+2025-02-19 09:34:26,849 - app - ERROR - Error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+[SQL: INSERT INTO users (id, email, password, is_active, salt, created_at, updated_at) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::BOOLEAN, $5::VARCHAR, $6::TIMESTAMP WITHOUT TIME ZONE, $7::TIMESTAMP WITHOUT TIME ZONE)]
+[parameters: (UUID('9b635e72-3c65-4d33-a1e6-47307d6506ee'), 'sd', '$2b$12$n/5peuH7lKVTw9AIJI3Vm.ErjKHq5gO8tKn/k/ErDhA5WtbEg0vna', True, 'W+W4au8qs8jwBWRln/EnCg==', datetime.datetime(2025, 2, 19, 9, 34, 26, 822545), datetime.datetime(2025, 2, 19, 9, 34, 26, 822552))]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 545, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+  File "/usr/local/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+  File "/usr/local/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 267, in __bind_execute
+    data, status, _ = await self.__do_execute(
+  File "/usr/local/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 256, in __do_execute
+    return await executor(protocol)
+  File "asyncpg/protocol/protocol.pyx", line 206, in bind_execute
+asyncpg.exceptions.UniqueViolationError: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.IntegrityError: <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/app/api/v1/endpoints/user.py", line 40, in register
+    user = await user_service.create_user(email_vo, password_vo)
+  File "/app/app/domain/user/services/user_service.py", line 40, in create_user
+    await self.user_repository.add(UserMapper.to_orm(domain_user))
+  File "/app/app/infrastructure/repositories/user_repository.py", line 28, in add
+    await self.db.commit()
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/session.py", line 1011, in commit
+    await greenlet_spawn(self.sync_session.commit)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1048, in _emit_insert_statements
+    result = connection.execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+[SQL: INSERT INTO users (id, email, password, is_active, salt, created_at, updated_at) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::BOOLEAN, $5::VARCHAR, $6::TIMESTAMP WITHOUT TIME ZONE, $7::TIMESTAMP WITHOUT TIME ZONE)]
+[parameters: (UUID('9b635e72-3c65-4d33-a1e6-47307d6506ee'), 'sd', '$2b$12$n/5peuH7lKVTw9AIJI3Vm.ErjKHq5gO8tKn/k/ErDhA5WtbEg0vna', True, 'W+W4au8qs8jwBWRln/EnCg==', datetime.datetime(2025, 2, 19, 9, 34, 26, 822545), datetime.datetime(2025, 2, 19, 9, 34, 26, 822552))]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-19 09:34:40,173 - app - DEBUG - 📌 Password Object: value='7845122'
+2025-02-19 09:34:40,178 - app - DEBUG - 📌 Password Value : 7845122
+2025-02-19 09:34:40,179 - app - DEBUG - 📌 HAst Password Value Object: AOpsnULQzQDH6mBRtOq12w==7845122
+2025-02-19 09:34:40,458 - app - ERROR - Error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+[SQL: INSERT INTO users (id, email, password, is_active, salt, created_at, updated_at) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::BOOLEAN, $5::VARCHAR, $6::TIMESTAMP WITHOUT TIME ZONE, $7::TIMESTAMP WITHOUT TIME ZONE)]
+[parameters: (UUID('9b635e72-3c65-4d33-a1e6-47307d6506ee'), 'sdewqeqweqweqe', '$2b$12$Tk4glFjEt4EwUgxuASZGuecOSwr7DIojyuZDgX9/hZAFYhVUMOPZm', True, 'AOpsnULQzQDH6mBRtOq12w==', datetime.datetime(2025, 2, 19, 9, 34, 40, 444779), datetime.datetime(2025, 2, 19, 9, 34, 40, 444787))]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 545, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+  File "/usr/local/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+  File "/usr/local/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 267, in __bind_execute
+    data, status, _ = await self.__do_execute(
+  File "/usr/local/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 256, in __do_execute
+    return await executor(protocol)
+  File "asyncpg/protocol/protocol.pyx", line 206, in bind_execute
+asyncpg.exceptions.UniqueViolationError: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.IntegrityError: <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/app/api/v1/endpoints/user.py", line 40, in register
+    user = await user_service.create_user(email_vo, password_vo)
+  File "/app/app/domain/user/services/user_service.py", line 40, in create_user
+    await self.user_repository.add(UserMapper.to_orm(domain_user))
+  File "/app/app/infrastructure/repositories/user_repository.py", line 28, in add
+    await self.db.commit()
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/session.py", line 1011, in commit
+    await greenlet_spawn(self.sync_session.commit)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1048, in _emit_insert_statements
+    result = connection.execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(9b635e72-3c65-4d33-a1e6-47307d6506ee) already exists.
+[SQL: INSERT INTO users (id, email, password, is_active, salt, created_at, updated_at) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::BOOLEAN, $5::VARCHAR, $6::TIMESTAMP WITHOUT TIME ZONE, $7::TIMESTAMP WITHOUT TIME ZONE)]
+[parameters: (UUID('9b635e72-3c65-4d33-a1e6-47307d6506ee'), 'sdewqeqweqweqe', '$2b$12$Tk4glFjEt4EwUgxuASZGuecOSwr7DIojyuZDgX9/hZAFYhVUMOPZm', True, 'AOpsnULQzQDH6mBRtOq12w==', datetime.datetime(2025, 2, 19, 9, 34, 40, 444779), datetime.datetime(2025, 2, 19, 9, 34, 40, 444787))]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-19 09:37:58,747 - app - INFO - Shutting down User Service
+2025-02-19 09:38:01,346 - app - DEBUG - Logger initialized!
+2025-02-19 09:38:01,391 - app - INFO - Starting User Service
+2025-02-19 09:39:09,560 - app - INFO - Shutting down User Service
+2025-02-19 09:39:10,575 - app - DEBUG - Logger initialized!
+2025-02-19 09:39:10,592 - app - INFO - Starting User Service
+2025-02-19 09:40:14,618 - app - INFO - Shutting down User Service
+2025-02-19 09:40:15,838 - app - DEBUG - Logger initialized!
+2025-02-19 09:40:15,855 - app - INFO - Starting User Service
+2025-02-19 09:42:04,614 - app - INFO - Shutting down User Service
+2025-02-19 09:42:05,658 - app - DEBUG - Logger initialized!
+2025-02-19 09:42:05,677 - app - INFO - Starting User Service
+2025-02-19 09:43:00,289 - app - INFO - Shutting down User Service
+2025-02-19 09:43:01,143 - app - DEBUG - Logger initialized!
+2025-02-19 09:43:01,167 - app - INFO - Starting User Service
+2025-02-19 09:46:10,987 - app - INFO - Shutting down User Service
+2025-02-19 09:46:11,994 - app - DEBUG - Logger initialized!
+2025-02-19 09:46:12,057 - app - INFO - Starting User Service
+2025-02-19 09:46:12,595 - app - DEBUG - Logger initialized!
+2025-02-19 09:46:12,610 - app - INFO - Starting User Service
+2025-02-19 09:47:52,590 - app - INFO - Shutting down User Service
+2025-02-19 09:47:53,574 - app - DEBUG - Logger initialized!
+2025-02-19 09:47:53,593 - app - INFO - Starting User Service
+2025-02-19 09:52:47,643 - app - INFO - Shutting down User Service
+2025-02-19 09:52:49,238 - app - DEBUG - Logger initialized!
+2025-02-19 09:52:49,257 - app - INFO - Starting User Service
+2025-02-19 09:54:36,879 - app - INFO - Shutting down User Service
+2025-02-19 09:54:37,737 - app - DEBUG - Logger initialized!
+2025-02-19 09:54:37,754 - app - INFO - Starting User Service
+2025-02-19 10:01:22,690 - app - INFO - Shutting down User Service
+2025-02-19 10:01:24,734 - app - DEBUG - Logger initialized!
+2025-02-19 10:01:24,767 - app - INFO - Starting User Service
+2025-02-19 10:02:47,100 - app - INFO - Shutting down User Service
+2025-02-19 10:02:57,477 - app - DEBUG - Logger initialized!
+2025-02-19 10:02:57,514 - app - INFO - Starting User Service
+2025-02-19 10:06:30,493 - app - INFO - Shutting down User Service
+2025-02-19 10:06:34,589 - app - DEBUG - Logger initialized!
+2025-02-19 10:06:34,615 - app - INFO - Starting User Service
+2025-02-19 10:09:15,509 - app - INFO - Shutting down User Service
+2025-02-19 10:09:17,221 - app - DEBUG - Logger initialized!
+2025-02-19 10:09:17,249 - app - INFO - Starting User Service
+2025-02-19 10:11:11,402 - app - INFO - Shutting down User Service
+2025-02-19 10:11:12,432 - app - DEBUG - Logger initialized!
+2025-02-19 10:11:12,450 - app - INFO - Starting User Service
+2025-02-19 10:13:05,362 - app - INFO - Shutting down User Service
+2025-02-19 10:13:06,415 - app - DEBUG - Logger initialized!
+2025-02-19 10:13:06,433 - app - INFO - Starting User Service
+2025-02-19 10:14:31,287 - app - INFO - Shutting down User Service
+2025-02-19 10:14:32,014 - app - DEBUG - Logger initialized!
+2025-02-19 10:14:32,034 - app - INFO - Starting User Service
+2025-02-19 10:16:34,606 - app - INFO - Shutting down User Service
+2025-02-19 10:16:35,988 - app - DEBUG - Logger initialized!
+2025-02-19 10:16:36,087 - app - INFO - Starting User Service
+2025-02-19 10:18:20,332 - app - INFO - Shutting down User Service
+2025-02-19 10:18:21,499 - app - DEBUG - Logger initialized!
+2025-02-19 10:18:21,551 - app - INFO - Starting User Service
+2025-02-19 10:18:42,201 - app - DEBUG - 📌 Password Object: value='test23@example.com'
+2025-02-19 10:18:42,203 - app - DEBUG - 📌 HAst Password Value Object: value='securepassword123'
+2025-02-19 10:19:57,585 - app - INFO - Shutting down User Service
+2025-02-19 10:19:58,757 - app - DEBUG - Logger initialized!
+2025-02-19 10:19:58,776 - app - INFO - Starting User Service
+2025-02-19 10:20:20,233 - app - INFO - Shutting down User Service
+2025-02-19 10:20:21,155 - app - DEBUG - Logger initialized!
+2025-02-19 10:20:21,182 - app - INFO - Starting User Service
+2025-02-19 10:26:18,324 - app - INFO - Shutting down User Service
+2025-02-19 10:26:19,185 - app - DEBUG - Logger initialized!
+2025-02-19 10:26:19,220 - app - INFO - Starting User Service
+2025-02-19 10:26:57,703 - app - DEBUG - 📌 Password Object: test22@gmail.com
+2025-02-19 10:26:57,707 - app - DEBUG - 📌 HAst Password Value Object: 4854654654
+2025-02-19 10:29:19,172 - app - INFO - Shutting down User Service
+2025-02-19 10:29:20,007 - app - DEBUG - Logger initialized!
+2025-02-19 10:29:20,027 - app - INFO - Starting User Service
+2025-02-19 17:31:07,520 - app - INFO - Shutting down User Service
+2025-02-19 17:31:11,209 - app - DEBUG - Logger initialized!
+2025-02-19 17:31:11,248 - app - INFO - Starting User Service
+2025-02-19 17:34:48,026 - app - INFO - Shutting down User Service
+2025-02-19 17:34:50,978 - app - DEBUG - Logger initialized!
+2025-02-19 17:34:51,043 - app - INFO - Starting User Service
+2025-02-19 17:38:03,261 - app - INFO - Shutting down User Service
+2025-02-19 17:38:04,790 - app - DEBUG - Logger initialized!
+2025-02-19 17:38:04,820 - app - INFO - Starting User Service
+2025-02-19 17:38:14,086 - app - INFO - Shutting down User Service
+2025-02-19 17:38:14,823 - app - DEBUG - Logger initialized!
+2025-02-19 17:38:14,840 - app - INFO - Starting User Service
+2025-02-19 17:38:36,708 - app - INFO - Shutting down User Service
+2025-02-19 17:38:37,739 - app - DEBUG - Logger initialized!
+2025-02-19 17:38:37,762 - app - INFO - Starting User Service
+2025-02-19 17:38:40,827 - app - INFO - Shutting down User Service
+2025-02-19 17:38:41,428 - app - DEBUG - Logger initialized!
+2025-02-19 17:38:41,447 - app - INFO - Starting User Service
+2025-02-19 17:39:08,859 - app - ERROR - Error: 1 validation error for UserResponse
+email
+  Input should be a valid string [type=string_type, input_value=Email(value='user22@example.com'), input_type=Email]
+    For further information visit https://errors.pydantic.dev/2.10/v/string_type
+Traceback (most recent call last):
+  File "/app/app/api/v1/endpoints/user.py", line 26, in register
+    user = await user_service.create_user(email_vo, password_vo)
+  File "/app/app/domain/user/services/user_service.py", line 41, in create_user
+    return UserResponse.model_validate(domain_user)
+  File "/usr/local/lib/python3.10/site-packages/pydantic/main.py", line 627, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for UserResponse
+email
+  Input should be a valid string [type=string_type, input_value=Email(value='user22@example.com'), input_type=Email]
+    For further information visit https://errors.pydantic.dev/2.10/v/string_type
+2025-02-19 21:35:26,861 - app - INFO - Shutting down User Service
+2025-02-19 23:02:54,460 - app - DEBUG - Logger initialized!
+2025-02-19 23:02:54,535 - app - INFO - Starting User Service
+2025-02-19 23:04:22,784 - app - INFO - Shutting down User Service
+2025-02-19 23:04:24,144 - app - DEBUG - Logger initialized!
+2025-02-19 23:04:24,231 - app - INFO - Starting User Service
+2025-02-19 23:04:33,253 - app - DEBUG - Error: [<app.infrastructure.database.models.user.UserDBModel object at 0xffff8fdd3430>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff8fdd3a90>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff8fdd3b20>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff8fdd3bb0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff8fdd3be0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff8fdd3c40>]
+NoneType: None
+2025-02-19 23:16:05,217 - app - INFO - Shutting down User Service
+2025-02-19 23:16:06,453 - app - DEBUG - Logger initialized!
+2025-02-19 23:16:06,487 - app - INFO - Starting User Service
+2025-02-19 23:29:16,825 - app - INFO - Shutting down User Service
+2025-02-19 23:29:18,072 - app - DEBUG - Logger initialized!
+2025-02-19 23:29:18,090 - app - INFO - Starting User Service
+2025-02-19 23:30:08,837 - app - INFO - Shutting down User Service
+2025-02-19 23:31:19,601 - app - DEBUG - Logger initialized!
+2025-02-19 23:31:19,625 - app - INFO - Starting User Service
+2025-02-19 23:38:41,491 - app - INFO - Shutting down User Service
+2025-02-19 23:52:51,378 - app - DEBUG - Logger initialized!
+2025-02-19 23:52:51,438 - app - INFO - Starting User Service
+2025-02-19 23:58:07,851 - app - INFO - Shutting down User Service
+2025-02-19 23:58:09,094 - app - DEBUG - Logger initialized!
+2025-02-19 23:58:09,115 - app - INFO - Starting User Service
+2025-02-19 23:58:09,568 - app - INFO - Shutting down User Service
+2025-02-19 23:58:10,352 - app - DEBUG - Logger initialized!
+2025-02-19 23:58:10,369 - app - INFO - Starting User Service
+2025-02-20 00:07:51,933 - app - INFO - Shutting down User Service
+2025-02-20 00:07:57,341 - app - DEBUG - Logger initialized!
+2025-02-20 00:07:57,622 - app - INFO - Starting User Service
+2025-02-20 00:19:34,219 - app - INFO - Shutting down User Service
+2025-02-20 00:19:35,432 - app - DEBUG - Logger initialized!
+2025-02-20 00:19:35,453 - app - INFO - Starting User Service
+2025-02-20 00:20:10,101 - app - INFO - Shutting down User Service
+2025-02-20 00:20:10,978 - app - DEBUG - Logger initialized!
+2025-02-20 00:20:11,004 - app - INFO - Starting User Service
+2025-02-20 00:24:36,832 - app - INFO - Shutting down User Service
+2025-02-20 00:24:37,901 - app - DEBUG - Logger initialized!
+2025-02-20 00:25:01,632 - app - DEBUG - Logger initialized!
+2025-02-20 00:27:14,024 - app - DEBUG - Logger initialized!
+2025-02-20 00:27:14,047 - app - INFO - Starting User Service
+2025-02-20 00:32:49,927 - app - INFO - Shutting down User Service
+2025-02-20 00:32:50,833 - app - DEBUG - Logger initialized!
+2025-02-20 00:32:50,860 - app - INFO - Starting User Service
+2025-02-20 00:33:53,476 - app - INFO - Shutting down User Service
+2025-02-20 00:33:54,318 - app - DEBUG - Logger initialized!
+2025-02-20 00:33:54,337 - app - INFO - Starting User Service
+2025-02-20 00:34:32,261 - app - INFO - Shutting down User Service
+2025-02-20 00:34:33,197 - app - DEBUG - Logger initialized!
+2025-02-20 00:34:33,215 - app - INFO - Starting User Service
+2025-02-20 00:54:07,180 - app - INFO - Shutting down User Service
+2025-02-20 00:54:09,119 - app - DEBUG - Logger initialized!
+2025-02-20 00:54:09,149 - app - INFO - Starting User Service
+2025-02-20 00:54:38,485 - app - INFO - Shutting down User Service
+2025-02-20 00:54:43,736 - app - DEBUG - Logger initialized!
+2025-02-20 00:54:43,913 - app - INFO - Starting User Service
+2025-02-20 00:54:55,841 - app - INFO - Shutting down User Service
+2025-02-20 00:55:06,275 - app - DEBUG - Logger initialized!
+2025-02-20 00:55:06,304 - app - INFO - Starting User Service
+2025-02-20 00:55:17,466 - app - INFO - Shutting down User Service
+2025-02-20 00:55:18,360 - app - DEBUG - Logger initialized!
+2025-02-20 00:55:18,381 - app - INFO - Starting User Service
+2025-02-20 00:55:34,605 - app - INFO - Shutting down User Service
+2025-02-20 00:56:12,952 - app - DEBUG - Logger initialized!
+2025-02-20 00:56:12,976 - app - INFO - Starting User Service
+2025-02-20 00:56:22,085 - app - DEBUG - Error: [<app.infrastructure.database.models.user.UserDBModel object at 0xffff85678670>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff85678700>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff85678790>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff85678820>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff85678850>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff856788b0>]
+NoneType: None
+2025-02-20 00:56:30,353 - app - INFO - Shutting down User Service
+2025-02-20 00:56:31,613 - app - DEBUG - Logger initialized!
+2025-02-20 00:56:31,631 - app - INFO - Starting User Service
+2025-02-20 00:56:36,165 - app - DEBUG - Error: [<app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca07c0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca0850>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca08e0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca0970>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca09a0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca0a00>]
+NoneType: None
+2025-02-20 00:56:57,150 - app - DEBUG - Error: [<app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca0ee0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca0fa0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffff9aca1060>]
+NoneType: None
+2025-02-20 00:57:11,792 - app - INFO - Shutting down User Service
+2025-02-20 00:57:12,589 - app - DEBUG - Logger initialized!
+2025-02-20 00:57:12,611 - app - INFO - Starting User Service
+2025-02-20 00:57:20,982 - app - DEBUG - Error: [<app.infrastructure.database.models.user.UserDBModel object at 0xffffa64206a0>, <app.infrastructure.database.models.user.UserDBModel object at 0xffffa6420730>, <app.infrastructure.database.models.user.UserDBModel object at 0xffffa64207c0>]
+NoneType: None
+2025-02-20 00:58:10,982 - app - INFO - Shutting down User Service
+2025-02-20 00:58:11,794 - app - DEBUG - Logger initialized!
+2025-02-20 00:58:11,817 - app - INFO - Starting User Service
+2025-02-20 00:59:05,468 - app - INFO - Shutting down User Service
+2025-02-20 00:59:06,298 - app - DEBUG - Logger initialized!
+2025-02-20 00:59:06,316 - app - INFO - Starting User Service
+2025-02-20 00:59:22,325 - app - DEBUG - Error: <class 'list'>
+NoneType: None
+2025-02-20 01:01:50,619 - app - INFO - Shutting down User Service
+2025-02-20 01:01:51,857 - app - DEBUG - Logger initialized!
+2025-02-20 01:01:51,879 - app - INFO - Starting User Service
+2025-02-20 01:06:40,467 - app - INFO - Shutting down User Service
+2025-02-20 01:06:42,487 - app - DEBUG - Logger initialized!
+2025-02-20 01:06:42,520 - app - INFO - Starting User Service
+2025-02-20 01:07:40,624 - app - INFO - Shutting down User Service
+2025-02-20 01:07:54,370 - app - DEBUG - Logger initialized!
+2025-02-20 01:07:54,393 - app - INFO - Starting User Service
+2025-02-20 01:08:09,348 - app - INFO - Shutting down User Service
+2025-02-20 01:08:21,926 - app - DEBUG - Logger initialized!
+2025-02-20 01:08:21,954 - app - INFO - Starting User Service
+2025-02-20 01:08:40,064 - app - DEBUG - Error: <class 'list'>
+NoneType: None
+2025-02-20 01:10:11,436 - app - INFO - Shutting down User Service
+2025-02-20 01:10:12,541 - app - DEBUG - Logger initialized!
+2025-02-20 01:10:12,590 - app - INFO - Starting User Service
+2025-02-20 09:59:42,565 - app - INFO - Shutting down User Service
